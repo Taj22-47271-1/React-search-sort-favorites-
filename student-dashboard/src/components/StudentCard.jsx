@@ -2,7 +2,16 @@ import PropTypes from "prop-types";
 import CourseTag from "./CourseTag";
 import StatBadge from "./StatBadge";
 
-function StudentCard({ name, id, avatar, gpa, major, courses }) {
+function StudentCard({
+  name,
+  id,
+  avatar,
+  gpa,
+  major,
+  courses,
+  isFavorite,
+  onFavoriteToggle,
+}) {
   const colors = ["#4f46e5", "#0891b2", "#16a34a", "#ea580c"];
 
   return (
@@ -27,6 +36,13 @@ function StudentCard({ name, id, avatar, gpa, major, courses }) {
           />
         ))}
       </div>
+
+      <button
+        className={isFavorite ? "favorite-btn active" : "favorite-btn"}
+        onClick={() => onFavoriteToggle(id)}
+      >
+        {isFavorite ? "★ Favorite" : "☆ Add Favorite"}
+      </button>
     </div>
   );
 }
@@ -38,6 +54,8 @@ StudentCard.propTypes = {
   gpa: PropTypes.number.isRequired,
   major: PropTypes.string.isRequired,
   courses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
 };
 
 export default StudentCard;
